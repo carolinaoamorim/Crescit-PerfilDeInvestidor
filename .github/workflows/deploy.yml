@@ -47,7 +47,11 @@ jobs:
           script: |
             docker stop perfilinvestidor
             docker rm --force perfilinvestidor
-            docker run  -d -p 8080:8080 --name perfilinvestidor larinhazzz/perfilinvestidor-ci:${{ github.sha }}
+            docker run -d -p 8080:8080 --name perfilinvestidor \
+              -e AUTH0_ISSUER="${{ vars.AUTH0_ISSUER || 'https://dev-s41b58hqkvvmdu13.us.auth0.com/' }}" \
+              -e AUTH0_AUDIENCE="${{ vars.AUTH0_AUDIENCE || 'https://api.acessor-investimentos' }}" \
+              -e FRONTEND_URL="${{ vars.FRONTEND_URL || 'http://localhost:5173' }}" \
+              larinhazzz/perfilinvestidor-ci:${{ github.sha }}
 
 
 
