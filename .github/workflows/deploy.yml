@@ -47,6 +47,9 @@ jobs:
           script: |
             docker stop perfilinvestidor
             docker rm --force perfilinvestidor
+            # Cada deploy gera uma imagem com tag nova; sem limpar, o disco da instância enche
+            docker image prune -af
+            docker builder prune -af
             docker run -d -p 8080:8080 --name perfilinvestidor \
               -e AUTH0_ISSUER="${{ vars.AUTH0_ISSUER || 'https://dev-s41b58hqkvvmdu13.us.auth0.com/' }}" \
               -e AUTH0_AUDIENCE="${{ vars.AUTH0_AUDIENCE || 'https://api.acessor-investimentos' }}" \
