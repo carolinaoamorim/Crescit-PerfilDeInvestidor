@@ -37,7 +37,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-postgres}
       RABBITMQ_HOST: ${RABBITMQ_HOST:-rabbitmq}
       AUTH0_ISSUER: ${AUTH0_ISSUER:-https://dev-s41b58hqkvvmdu13.us.auth0.com/}
-      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE:-https://api.acessor-investimentos}
+      AUTH0_AUDIENCE: ${AUTH0_AUDIENCE:-https://api.crescit-investimentos}
       FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
     ports:
       - "8080:8080"

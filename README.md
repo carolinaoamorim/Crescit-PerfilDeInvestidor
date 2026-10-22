@@ -44,7 +44,7 @@ assinatura (JWKS do Auth0), pelo `issuer` (`AUTH0_ISSUER`) e pela `audience`
 | Variável | Padrão |
 | --- | --- |
 | `AUTH0_ISSUER` | `https://dev-s41b58hqkvvmdu13.us.auth0.com/` |
-| `AUTH0_AUDIENCE` | `https://api.acessor-investimentos` |
+| `AUTH0_AUDIENCE` | `https://api.crescit-investimentos` |
 | `FRONTEND_URL` | `http://localhost:5173` |
 
 No deploy, os valores podem ser sobrescritos pelas *variables* do repositório
