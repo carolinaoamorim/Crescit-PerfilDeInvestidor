@@ -45,10 +45,11 @@ assinatura (JWKS do Auth0), pelo `issuer` (`AUTH0_ISSUER`) e pela `audience`
 | --- | --- |
 | `AUTH0_ISSUER` | `https://dev-s41b58hqkvvmdu13.us.auth0.com/` |
 | `AUTH0_AUDIENCE` | `https://api.crescit-investimentos` |
-| `FRONTEND_URL` | `http://localhost:5173` |
+| `FRONTEND_URL` | `https://crescit-frontend.vercel.app` |
 
 No deploy, os valores podem ser sobrescritos pelas *variables* do repositório
-no GitHub com esses mesmos nomes.
+no GitHub com esses mesmos nomes. Para desenvolvimento local, use
+`FRONTEND_URL=http://localhost:5173`.
 
 ## Endpoints
 

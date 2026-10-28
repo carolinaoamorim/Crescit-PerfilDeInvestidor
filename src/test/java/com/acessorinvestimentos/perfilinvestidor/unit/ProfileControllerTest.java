@@ -269,11 +269,11 @@ class ProfileControllerTest {
     @Test
     void preflightFromFrontend_isAllowed() throws Exception {
         mockMvc.perform(options("/profiles/questionnaire")
-                        .header(HttpHeaders.ORIGIN, "http://localhost:5173")
+                        .header(HttpHeaders.ORIGIN, "https://crescit-frontend.vercel.app")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST")
                         .header(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS, "Authorization,Content-Type"))
                 .andExpect(status().isOk())
-                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:5173"));
+                .andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "https://crescit-frontend.vercel.app"));
     }
 
     @Test
