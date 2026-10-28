@@ -37,24 +37,24 @@ jobs:
           push: true
           tags: larinhazzz/perfilinvestidor-ci:${{ github.sha }}
 
-      - name: executing remote ssh commands using password
+      - name: Deploy Profile Service
         uses: appleboy/ssh-action@master
+        env:
+          IMAGE_TAG: larinhazzz/perfilinvestidor-ci:${{ github.sha }}
+          DB_HOST: ${{ vars.DB_HOST || 'portfolio-postgres' }}
+          DB_NAME: ${{ vars.DB_NAME || 'investor_profile' }}
+          DB_USERNAME: ${{ vars.DB_USERNAME || 'portfolio' }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD || 'portfolio' }}
+          AUTH0_ISSUER: ${{ vars.AUTH0_ISSUER || 'https://dev-s41b58hqkvvmdu13.us.auth0.com/' }}
+          AUTH0_AUDIENCE: ${{ vars.AUTH0_AUDIENCE || 'https://api.crescit-investimentos' }}
+          FRONTEND_URL: ${{ vars.FRONTEND_URL || 'https://crescit-frontend.vercel.app' }}
         with:
           host: ${{ secrets.HOST_TEST }}
           username: "ubuntu"
           key: ${{ secrets.KEY_TEST }}
           port: 22
-          script: |
-            docker stop perfilinvestidor
-            docker rm --force perfilinvestidor
-            # Cada deploy gera uma imagem com tag nova; sem limpar, o disco da instância enche
-            docker image prune -af
-            docker builder prune -af
-            docker run -d -p 8080:8080 --name perfilinvestidor \
-              -e AUTH0_ISSUER="${{ vars.AUTH0_ISSUER || 'https://dev-s41b58hqkvvmdu13.us.auth0.com/' }}" \
-              -e AUTH0_AUDIENCE="${{ vars.AUTH0_AUDIENCE || 'https://api.crescit-investimentos' }}" \
-              -e FRONTEND_URL="${{ vars.FRONTEND_URL || 'https://crescit-frontend.vercel.app' }}" \
-              larinhazzz/perfilinvestidor-ci:${{ github.sha }}
+          envs: IMAGE_TAG,DB_HOST,DB_NAME,DB_USERNAME,DB_PASSWORD,AUTH0_ISSUER,AUTH0_AUDIENCE,FRONTEND_URL
+          script_path: scripts/deploy.sh
 
 
 

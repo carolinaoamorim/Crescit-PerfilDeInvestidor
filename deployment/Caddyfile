@@ -1,0 +1,16 @@
+{
+	acme_ca https://acme-v02.api.letsencrypt.org/directory
+	https_port 8081
+}
+
+perfil.100-53-222-83.sslip.io:8081 {
+	reverse_proxy perfilinvestidor:8080
+}
+
+recomendacoes.100-53-222-83.sslip.io:8081 {
+	reverse_proxy recomendacoes:8080
+}
+
+portfolio.100-53-222-83.sslip.io:8081 {
+	reverse_proxy portifolio:8080
+}

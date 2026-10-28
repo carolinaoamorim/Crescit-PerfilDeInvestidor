@@ -51,6 +51,21 @@ No deploy, os valores podem ser sobrescritos pelas *variables* do repositório
 no GitHub com esses mesmos nomes. Para desenvolvimento local, use
 `FRONTEND_URL=http://localhost:5173`.
 
+O deploy usa `scripts/deploy.sh`, conecta ao container `portfolio-postgres`
+na rede `portfolio-network` e cria o banco separado `investor_profile` quando
+necessario. `DB_HOST`, `DB_NAME` e `DB_USERNAME` podem ser definidos nas variables
+do GitHub; o secret `DB_PASSWORD` deve corresponder ao PostgreSQL existente.
+A configuracao anterior do container e preservada e o deploy aguarda uma
+resposta `401` em `/profiles/me`, confirmando inicializacao e autenticacao.
+
+O proxy da instancia e mantido em `deployment/Caddyfile` e
+`deployment/deploy-https.sh`. Os arquivos sao instalados em
+`/home/ubuntu/crescit-runtime/`; os certificados ficam nos volumes
+`crescit-caddy-data` e `crescit-caddy-config`. As tres APIs sao publicadas com
+HTTPS na porta 8081, e a porta 80 fica disponivel para renovacao de certificados.
+O deploy de Recomendacoes usa apenas a rede Docker para deixar essa porta
+externa com o proxy.
+
 ## Endpoints
 
 | Método | Rota | Permissão | Descrição |
